@@ -324,7 +324,7 @@ void VehicleNode::initService()
 
 bool VehicleNode::initTopic()
 {
-  esc_publisher_ = nh_.advertise<dji_sdk::ESCStatus>("dji_osk_ros/esc", 10);
+  esc_publisher_ = nh_.advertise<dji_osdk_ros::ESCStatus>("dji_osk_ros/esc", 10);
 
   attitude_publisher_ = nh_.advertise<geometry_msgs::QuaternionStamped>("dji_osdk_ros/attitude", 10);
 /* @brief Provides various data about the battery
