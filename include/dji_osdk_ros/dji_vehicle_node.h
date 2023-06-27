@@ -131,6 +131,7 @@
 #include <dji_osdk_ros/SubscribeWaypointV2Event.h>
 #include <dji_osdk_ros/SubscribeWaypointV2State.h>
 
+
 #ifdef ADVANCED_SENSING
 #include <dji_osdk_ros/SetupCameraH264.h>
 #include <dji_osdk_ros/SetupCameraStream.h>
@@ -148,6 +149,8 @@
 #include <dji_osdk_ros/VOPosition.h>
 #include <dji_osdk_ros/FCTimeInUTC.h>
 #include <dji_osdk_ros/GPSUTC.h>
+#include <dji_osdk_ros/ESCStatus.h>
+
 
 //waypointV2.0
 #include <dji_osdk_ros/WaypointV2.h>
