@@ -359,6 +359,23 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     */
     p->local_position_publisher_.publish(local_pos);
   }
+  // Add esc data topic to publisher
+  Telemetry::TypeMap<Telemetry::TOPIC_ESC_DATA>::type esc_data =  vehicle->subscribe->getValue<Telemetry::TOPIC_ESC_DATA>();
+  dji_osdk_ros::ESCStatus esc_status;
+  int i = 3;
+  esc_status.header.stamp = msg_time;
+  esc_status.current = esc_data.esc[i].current;
+  esc_status.speed = esc_data.esc[i].speed;
+  esc_status.voltage = esc_data.esc[i].voltage;
+  esc_status.temperature = esc_data.esc[i].temperature;
+  esc_status.stall = esc_data.esc[i].stall;
+  esc_status.empty = esc_data.esc[i].empty;
+  esc_status.unbalanced = esc_data.esc[i].unbalanced;
+  esc_status.escDisconnected = esc_data.esc[i].escDisconnected;
+  esc_status.temperatureHigh = esc_data.esc[i].temperatureHigh;
+  esc_status.reserved = esc_data.esc[i].reserved;
+  p->esc_publisher_.publish(esc_status);
+  
 
   Telemetry::TypeMap<Telemetry::TOPIC_HEIGHT_FUSION>::type fused_height =
       vehicle->subscribe->getValue<Telemetry::TOPIC_HEIGHT_FUSION>();
