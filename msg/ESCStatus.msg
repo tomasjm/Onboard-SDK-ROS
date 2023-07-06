@@ -1,2 +1,2 @@
 Header header
-ESCStatus[] esc
+ESCStatusIndividual[] esc
