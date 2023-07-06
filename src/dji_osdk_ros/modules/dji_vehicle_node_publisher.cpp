@@ -338,14 +338,14 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     dji_osdk_ros::ESCStatusIndividual esc;
     esc.current         = static_cast<double>(esc_status.current) / 1000.0;
     esc.voltage   = static_cast<double>(esc_status.voltage) / 1000.0;
-    esc.emperature       = esc_status.temperature;
+    esc.temperature       = esc_status.temperature;
     esc.speed       = esc_status.speed;
     esc.stall           = esc_status.stall;
     esc.empty         = esc_status.empty;
     esc.unbalanced      = esc_status.unbalanced;
     esc.escDisconnected       = !esc_status.escDisconnected;
-    esc.tempeatureHigh       = esc_status.temperatureHigh;
-    esc_data_msg.escs.push_back(esc);
+    esc.temperatureHigh       = esc_status.temperatureHigh;
+    esc_data_msg.esc.push_back(esc);
   }
   p->esc_publisher_.publish(esc_data_msg);
 
