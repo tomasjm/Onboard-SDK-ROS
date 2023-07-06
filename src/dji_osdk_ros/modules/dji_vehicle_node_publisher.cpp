@@ -363,6 +363,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   Telemetry::TypeMap<Telemetry::TOPIC_ESC_DATA>::type esc_data =  vehicle->subscribe->getValue<Telemetry::TOPIC_ESC_DATA>();
   dji_osdk_ros::ESCStatus esc_status;
   int i = 3;
+  esc_status.header.frame_id = "esc";
   esc_status.header.stamp = msg_time;
   esc_status.current = 0;
   esc_status.speed = 0;
@@ -384,6 +385,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   // esc_status.escdisconnected = esc_data.esc[i].escdisconnected;
   // esc_status.temperaturehigh = esc_data.esc[i].temperaturehigh;
   // esc_status.reserved = esc_data.esc[i].reserved;
+  ROS_INFO("SE AGREGÓ DATA")
   p->esc_publisher_.publish(esc_status);
   
 

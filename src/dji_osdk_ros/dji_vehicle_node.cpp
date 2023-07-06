@@ -541,8 +541,6 @@ bool VehicleNode::initDataSubscribeFromFC()
   topicList50Hz.push_back(Telemetry::TOPIC_STATUS_DISPLAYMODE);
   topicList50Hz.push_back(Telemetry::TOPIC_GIMBAL_ANGLES);
   topicList50Hz.push_back(Telemetry::TOPIC_GIMBAL_STATUS);
-  topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
-
 
   // acturally gimbal data is from Gimbal directly
   if (ptr_wrapper_->isM300())
@@ -574,7 +572,8 @@ bool VehicleNode::initDataSubscribeFromFC()
     rc_connection_status_publisher_ = nh_.advertise<std_msgs::UInt8>("dji_osdk_ros/rc_connection_status", 10);
     flight_anomaly_publisher_ = nh_.advertise<dji_osdk_ros::FlightAnomaly>("dji_osdk_ros/flight_anomaly", 10);
   }
-
+  ROS_INFO("Se agregó el topico de ESC_DATA");
+  topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
   int nTopic50Hz    = topicList50Hz.size();
   if (ptr_wrapper_->initPackageFromTopicList(static_cast<int>(SubscribePackgeIndex::PACKAGE_ID_50HZ), nTopic50Hz,
                                                    topicList50Hz.data(), 1, 50))
