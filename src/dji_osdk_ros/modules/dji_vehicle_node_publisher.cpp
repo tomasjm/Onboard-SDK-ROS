@@ -371,8 +371,8 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   esc_status.stall = 0;
   esc_status.empty = 0;
   esc_status.unbalanced = 0;
-  esc_status.escdisconnected = 0;
-  esc_status.temperaturehigh = 0;
+  esc_status.escDisconnected = 0;
+  esc_status.temperatureHigh = 0;
   esc_status.reserved = 0;
   esc_status.current = 0;
   // esc_status.speed = esc_data.esc[i].speed;
