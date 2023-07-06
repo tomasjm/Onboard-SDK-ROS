@@ -329,13 +329,13 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   Telemetry::TypeMap<Telemetry::TOPIC_ESC_DATA>::type esc_data = 
     vehicle->subscribe->getValue<Telemetry::TOPIC_ESC_DATA>();
 
-  dji_osdk_ros::ESCData esc_data_msg;
+  dji_osdk_ros::ESCStatus esc_data_msg;
   esc_data_msg.header.frame_id = "esc_data";
   esc_data_msg.header.stamp = msg_time;
   esc_data_msg.esc.reserve(sizeof(esc_data.esc) / sizeof(esc_data.esc[0]));
   for (const DJI::OSDK::Telemetry::ESCStatusIndividual& esc_status : esc_data.esc)
   {
-    dji_osdk_ros::ESCDataIndividual esc;
+    dji_osdk_ros::ESCStatusIndividual esc;
     esc.current         = static_cast<double>(esc_status.current) / 1000.0;
     esc.voltage   = static_cast<double>(esc_status.voltage) / 1000.0;
     esc.emperature       = esc_status.temperature;
@@ -347,7 +347,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     esc.tempeatureHigh       = esc_status.temperatureHigh;
     esc_data_msg.escs.push_back(esc);
   }
-  p->esc_publisher.publish(esc_data_msg);
+  p->esc_publisher_.publish(esc_data_msg);
 
   Telemetry::TypeMap<Telemetry::TOPIC_GPS_FUSED>::type fused_gps =
       vehicle->subscribe->getValue<Telemetry::TOPIC_GPS_FUSED>();
