@@ -364,16 +364,26 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   dji_osdk_ros::ESCStatus esc_status;
   int i = 3;
   esc_status.header.stamp = msg_time;
-  esc_status.current = esc_data.esc[i].current;
-  esc_status.speed = esc_data.esc[i].speed;
-  esc_status.voltage = esc_data.esc[i].voltage;
-  esc_status.temperature = esc_data.esc[i].temperature;
-  esc_status.stall = esc_data.esc[i].stall;
-  esc_status.empty = esc_data.esc[i].empty;
-  esc_status.unbalanced = esc_data.esc[i].unbalanced;
-  esc_status.escDisconnected = esc_data.esc[i].escDisconnected;
-  esc_status.temperatureHigh = esc_data.esc[i].temperatureHigh;
-  esc_status.reserved = esc_data.esc[i].reserved;
+  esc_status.current = 0
+  esc_status.speed = 0
+  esc_status.voltage = 0
+  esc_status.temperature = 0
+  esc_status.stall = 0
+  esc_status.empty = 0
+  esc_status.unbalanced = 0
+  esc_status.escdisconnected = 0
+  esc_status.temperaturehigh = 0
+  esc_status.reserved = 0
+  esc_status.current = 0
+  // esc_status.speed = esc_data.esc[i].speed;
+  // esc_status.voltage = esc_data.esc[i].voltage;
+  // esc_status.temperature = esc_data.esc[i].temperature;
+  // esc_status.stall = esc_data.esc[i].stall;
+  // esc_status.empty = esc_data.esc[i].empty;
+  // esc_status.unbalanced = esc_data.esc[i].unbalanced;
+  // esc_status.escdisconnected = esc_data.esc[i].escdisconnected;
+  // esc_status.temperaturehigh = esc_data.esc[i].temperaturehigh;
+  // esc_status.reserved = esc_data.esc[i].reserved;
   p->esc_publisher_.publish(esc_status);
   
 
