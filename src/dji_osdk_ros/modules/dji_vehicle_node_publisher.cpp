@@ -360,22 +360,35 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     p->local_position_publisher_.publish(local_pos);
   }
   // Add esc data topic to publisher
+  ROS_INFO("SE LLAMA FUNCION");
   Telemetry::TypeMap<Telemetry::TOPIC_ESC_DATA>::type esc_data =  vehicle->subscribe->getValue<Telemetry::TOPIC_ESC_DATA>();
+  ROS_INFO("INICIALIZA DATO");
   dji_osdk_ros::ESCStatus esc_status;
-  int i = 3;
+  int i = 0;
+  ROS_INFO("COMIENZA");
+  ROS_INFO("HEADER");
   esc_status.header.frame_id = "esc";
   esc_status.header.stamp = msg_time;
+  ROS_INFO("CURRENT");
   esc_status.current = 0;
+  ROS_INFO("SPEED");
   esc_status.speed = 0;
+  ROS_INFO("VOLTAGE");
   esc_status.voltage = 0;
+  ROS_INFO("TEMP");
   esc_status.temperature = 0;
+  ROS_INFO("STALL");
   esc_status.stall = 0;
+  ROS_INFO("EMPTY");
   esc_status.empty = 0;
+  ROS_INFO("UNBALANCED");
   esc_status.unbalanced = 0;
+  ROS_INFO("ESCDISC");
   esc_status.escDisconnected = 0;
+  ROS_INFO("TEMPHIGH");
   esc_status.temperatureHigh = 0;
+  ROS_INFO("RESERVED");
   esc_status.reserved = 0;
-  esc_status.current = 0;
   // esc_status.speed = esc_data.esc[i].speed;
   // esc_status.voltage = esc_data.esc[i].voltage;
   // esc_status.temperature = esc_data.esc[i].temperature;
@@ -385,7 +398,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   // esc_status.escdisconnected = esc_data.esc[i].escdisconnected;
   // esc_status.temperaturehigh = esc_data.esc[i].temperaturehigh;
   // esc_status.reserved = esc_data.esc[i].reserved;
-  ROS_INFO("SE AGREGÓ DATA");
+  ROS_INFO("FIN");
   p->esc_publisher_.publish(esc_status);
   
 
