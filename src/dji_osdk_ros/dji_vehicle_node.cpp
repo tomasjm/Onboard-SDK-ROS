@@ -439,7 +439,6 @@ bool VehicleNode::initTopic()
     int timeout = 1;
     std::vector<Telemetry::TopicName> topicList50Hz;
 
-    topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
 
     topicList50Hz.push_back(Telemetry::TOPIC_STATUS_FLIGHT);
     topicList50Hz.push_back(Telemetry::TOPIC_STATUS_DISPLAYMODE);
@@ -542,6 +541,8 @@ bool VehicleNode::initDataSubscribeFromFC()
   topicList50Hz.push_back(Telemetry::TOPIC_STATUS_DISPLAYMODE);
   topicList50Hz.push_back(Telemetry::TOPIC_GIMBAL_ANGLES);
   topicList50Hz.push_back(Telemetry::TOPIC_GIMBAL_STATUS);
+  topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
+
 
   // acturally gimbal data is from Gimbal directly
   if (ptr_wrapper_->isM300())
