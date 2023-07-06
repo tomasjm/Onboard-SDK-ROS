@@ -385,7 +385,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   // esc_status.escdisconnected = esc_data.esc[i].escdisconnected;
   // esc_status.temperaturehigh = esc_data.esc[i].temperaturehigh;
   // esc_status.reserved = esc_data.esc[i].reserved;
-  ROS_INFO("SE AGREGÓ DATA")
+  ROS_INFO("SE AGREGÓ DATA");
   p->esc_publisher_.publish(esc_status);
   
 
