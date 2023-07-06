@@ -73,6 +73,7 @@ add_message_files(
   FILES
 
   ESCStatus.msg
+  ESCStatusIndividual.msg
 
   FCTimeInUTC.msg
   JoystickParams.msg

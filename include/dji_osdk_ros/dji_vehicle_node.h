@@ -150,6 +150,8 @@
 #include <dji_osdk_ros/FCTimeInUTC.h>
 #include <dji_osdk_ros/GPSUTC.h>
 #include <dji_osdk_ros/ESCStatus.h>
+#include <dji_osdk_ros/ESCStatusIndividual.h>
+
 
 
 //waypointV2.0
