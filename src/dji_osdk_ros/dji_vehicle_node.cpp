@@ -535,7 +535,9 @@ bool VehicleNode::initDataSubscribeFromFC()
   }
 
   std::vector<Telemetry::TopicName> topicList50Hz;
-  // 50 Hz package from FC topicList50Hz.push_back(Telemetry::TOPIC_GPS_FUSED); topicList50Hz.push_back(Telemetry::TOPIC_ALTITUDE_FUSIONED);
+  // 50 Hz package from FC 
+  topicList50Hz.push_back(Telemetry::TOPIC_GPS_FUSED); 
+  topicList50Hz.push_back(Telemetry::TOPIC_ALTITUDE_FUSIONED);
   topicList50Hz.push_back(Telemetry::TOPIC_HEIGHT_FUSION);
   topicList50Hz.push_back(Telemetry::TOPIC_STATUS_FLIGHT);
   topicList50Hz.push_back(Telemetry::TOPIC_STATUS_DISPLAYMODE);
@@ -557,6 +559,8 @@ bool VehicleNode::initDataSubscribeFromFC()
 
   if(ptr_wrapper_->getFwVersion() > versionBase33)
   {
+    ROS_INFO("Se agregó el topico de ESC_DATA");
+    topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_POSITION_VO);
     topicList50Hz.push_back(Telemetry::TOPIC_RC_WITH_FLAG_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_FLIGHT_ANOMALY);
@@ -572,8 +576,7 @@ bool VehicleNode::initDataSubscribeFromFC()
     rc_connection_status_publisher_ = nh_.advertise<std_msgs::UInt8>("dji_osdk_ros/rc_connection_status", 10);
     flight_anomaly_publisher_ = nh_.advertise<dji_osdk_ros::FlightAnomaly>("dji_osdk_ros/flight_anomaly", 10);
   }
-  ROS_INFO("Se agregó el topico de ESC_DATA");
-  topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
+
   int nTopic50Hz    = topicList50Hz.size();
   if (ptr_wrapper_->initPackageFromTopicList(static_cast<int>(SubscribePackgeIndex::PACKAGE_ID_50HZ), nTopic50Hz,
                                                    topicList50Hz.data(), 1, 50))
