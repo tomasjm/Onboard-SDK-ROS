@@ -335,6 +335,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   esc_data_msg.esc.reserve(sizeof(esc_data.esc) / sizeof(esc_data.esc[0]));
   for (const DJI::OSDK::Telemetry::ESCStatusIndividual& esc_status : esc_data.esc)
   {
+    ROS_INFO("Se agrega datos del motor");
     dji_osdk_ros::ESCStatusIndividual esc;
     esc.current         = static_cast<double>(esc_status.current) / 1000.0;
     esc.voltage   = static_cast<double>(esc_status.voltage) / 1000.0;
@@ -347,6 +348,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     esc.temperatureHigh       = esc_status.temperatureHigh;
     esc_data_msg.esc.push_back(esc);
   }
+  
   p->esc_publisher_.publish(esc_data_msg);
 
   Telemetry::TypeMap<Telemetry::TOPIC_GPS_FUSED>::type fused_gps =
