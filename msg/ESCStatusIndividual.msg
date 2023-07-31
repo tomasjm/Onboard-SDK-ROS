@@ -1,3 +1,4 @@
+uint8 id
 int16 current
 int16 speed
 uint16 voltage
