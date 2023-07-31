@@ -332,19 +332,24 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   dji_osdk_ros::ESCStatus esc_data_msg;
   esc_data_msg.header.frame_id = "esc_data";
   esc_data_msg.header.stamp = msg_time;
-  for (int i = 0; i++; i<4)
+  esc_data_msg.esc.reserve(sizeof(esc_data.esc) / sizeof(esc_data.esc[0]));
+  ROS_INFO("Se agrega datos del motor");
+  int i = 0;
+  for (const DJI::OSDK::Telemetry::ESCStatusIndividual& esc_status : esc_data.esc)
   {
+    if (i >= 4) break;
     dji_osdk_ros::ESCStatusIndividual esc;
-    esc.current         = esc_data.esc[i].current;
-    esc.voltage   = esc_data.esc[i].voltage;
-    esc.temperature       = esc_data.esc[i].temperature;
-    esc.speed       = esc_data.esc[i].speed;
-    esc.stall           = esc_data.esc[i].stall;
-    esc.empty         = esc_data.esc[i].empty;
-    esc.unbalanced      = esc_data.esc[i].unbalanced;
-    esc.escDisconnected       = !esc_data.esc[i].escDisconnected;
-    esc.temperatureHigh       = esc_data.esc[i].temperatureHigh;
+    esc.current         = esc_status.current;
+    esc.voltage   = esc_status.voltage;
+    esc.temperature       = esc_status.temperature;
+    esc.speed       = esc_status.speed;
+    esc.stall           = esc_status.stall;
+    esc.empty         = esc_status.empty;
+    esc.unbalanced      = esc_status.unbalanced;
+    esc.escDisconnected       = !esc_status.escDisconnected;
+    esc.temperatureHigh       = esc_status.temperatureHigh;
     esc_data_msg.esc.push_back(esc);
+    i++;
   }
   
   p->esc_publisher_.publish(esc_data_msg);
