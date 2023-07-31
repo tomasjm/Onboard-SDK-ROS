@@ -335,7 +335,7 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   esc_data_msg.esc.reserve(sizeof(esc_data.esc) / sizeof(esc_data.esc[0]));
   ROS_INFO("Se agrega datos del motor");
   ROS_INFO(sizeof(esc_data.esc));
-  ROS_INFO(sizeof(esc_data.esc[0]))
+  ROS_INFO(sizeof(esc_data.esc[0]));
   int i = 0;
   for (const DJI::OSDK::Telemetry::ESCStatusIndividual& esc_status : esc_data.esc)
   {
