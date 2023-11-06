@@ -72,6 +72,8 @@ find_package(FFMPEG REQUIRED)
 add_message_files(
   FILES
 
+  Mag.msg
+
   ESCStatus.msg
   ESCStatusIndividual.msg
 
