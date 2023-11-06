@@ -325,7 +325,7 @@ void VehicleNode::initService()
 bool VehicleNode::initTopic()
 {
   esc_publisher_ = nh_.advertise<dji_osdk_ros::ESCStatus>("dji_osdk_ros/esc", 10);
-
+  compass_publisher_ = nh_.advertise<dji_osdk_ros::Mag>("dji_osdk_ros/compass", 10);
   attitude_publisher_ = nh_.advertise<geometry_msgs::QuaternionStamped>("dji_osdk_ros/attitude", 10);
 /* @brief Provides various data about the battery
  * @note Most of these details need a DJI Intelligent battery to work correctly
@@ -516,6 +516,7 @@ bool VehicleNode::initDataSubscribeFromFC()
   topicList100Hz.push_back(Telemetry::TOPIC_QUATERNION);
   topicList100Hz.push_back(Telemetry::TOPIC_ACCELERATION_GROUND);
   topicList100Hz.push_back(Telemetry::TOPIC_ANGULAR_RATE_FUSIONED);
+  topicList100Hz.push_back(Telemetry::TOPIC_COMPASS);
 
   int nTopic100Hz    = topicList100Hz.size();
   if (ptr_wrapper_->initPackageFromTopicList(static_cast<int>(SubscribePackgeIndex::PACKAGE_ID_100HZ), nTopic100Hz,
