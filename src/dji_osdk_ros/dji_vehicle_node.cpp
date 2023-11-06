@@ -324,6 +324,8 @@ void VehicleNode::initService()
 
 bool VehicleNode::initTopic()
 {
+  esc_publisher_ = nh_.advertise<dji_osdk_ros::ESCStatus>("dji_osdk_ros/esc", 10);
+
   attitude_publisher_ = nh_.advertise<geometry_msgs::QuaternionStamped>("dji_osdk_ros/attitude", 10);
 /* @brief Provides various data about the battery
  * @note Most of these details need a DJI Intelligent battery to work correctly
@@ -437,6 +439,7 @@ bool VehicleNode::initTopic()
     int timeout = 1;
     std::vector<Telemetry::TopicName> topicList50Hz;
 
+
     topicList50Hz.push_back(Telemetry::TOPIC_STATUS_FLIGHT);
     topicList50Hz.push_back(Telemetry::TOPIC_STATUS_DISPLAYMODE);
     topicList50Hz.push_back(Telemetry::TOPIC_VELOCITY);
@@ -532,8 +535,8 @@ bool VehicleNode::initDataSubscribeFromFC()
   }
 
   std::vector<Telemetry::TopicName> topicList50Hz;
-  // 50 Hz package from FC
-  topicList50Hz.push_back(Telemetry::TOPIC_GPS_FUSED);
+  // 50 Hz package from FC 
+  topicList50Hz.push_back(Telemetry::TOPIC_GPS_FUSED); 
   topicList50Hz.push_back(Telemetry::TOPIC_ALTITUDE_FUSIONED);
   topicList50Hz.push_back(Telemetry::TOPIC_HEIGHT_FUSION);
   topicList50Hz.push_back(Telemetry::TOPIC_STATUS_FLIGHT);
@@ -556,6 +559,8 @@ bool VehicleNode::initDataSubscribeFromFC()
 
   if(ptr_wrapper_->getFwVersion() > versionBase33)
   {
+    ROS_INFO("Se agregó el topico de ESC_DATA");
+    topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_POSITION_VO);
     topicList50Hz.push_back(Telemetry::TOPIC_RC_WITH_FLAG_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_FLIGHT_ANOMALY);

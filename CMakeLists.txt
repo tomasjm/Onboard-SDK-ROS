@@ -72,6 +72,9 @@ find_package(FFMPEG REQUIRED)
 add_message_files(
   FILES
 
+  ESCStatus.msg
+  ESCStatusIndividual.msg
+
   FCTimeInUTC.msg
   JoystickParams.msg
   GPSUTC.msg
