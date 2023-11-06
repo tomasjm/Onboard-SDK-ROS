@@ -583,6 +583,18 @@ void VehicleNode::publish100HzData(Vehicle *vehicle, RecvContainer recvFrame,
     }
   }
 
+  Telemetry::TypeMap<Telemetry::TOPIC_COMPASS>::type compass_data = 
+    vehicle->subscribe->getValue<Telemetry::TOPIC_COMPASS>();
+
+  dji_osdk_ros::Mag compass_msg;
+  compass_msg.header.frame_id = "compass_data";
+  compass_msg.header.stamp = msg_time;
+  compass_msg.x = compass_data.x;
+  compass_msg.y = compass_data.y;
+  compass_msg.z = compass_data.z;
+  
+  p->esc_publisher_.publish(compass_msg);
+
   Telemetry::TypeMap<Telemetry::TOPIC_QUATERNION>::type quat =
       vehicle->subscribe->getValue<Telemetry::TOPIC_QUATERNION>();
   geometry_msgs::QuaternionStamped q;

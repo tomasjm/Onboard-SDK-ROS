@@ -151,7 +151,7 @@
 #include <dji_osdk_ros/GPSUTC.h>
 #include <dji_osdk_ros/ESCStatus.h>
 #include <dji_osdk_ros/ESCStatusIndividual.h>
-
+#include <dji_osdk_ros/Mag.h>
 
 
 //waypointV2.0
@@ -292,6 +292,7 @@ namespace dji_osdk_ros
 
       /*! publishers */
       //! telemetry data publisher
+      ros::Publisher esc_compass_;
       ros::Publisher esc_publisher_; //added fork
       ros::Publisher attitude_publisher_;
       ros::Publisher angularRate_publisher_;
