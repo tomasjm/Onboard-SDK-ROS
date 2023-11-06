@@ -590,7 +590,8 @@ void VehicleNode::publish100HzData(Vehicle *vehicle, RecvContainer recvFrame,
 
   Telemetry::TypeMap<Telemetry::TOPIC_COMPASS>::type compass_data = 
     vehicle->subscribe->getValue<Telemetry::TOPIC_COMPASS>();
-  ROS_INFO(compass_data);
+  
+  ROS_INFO(compass_data.x);
   dji_osdk_ros::Mag compass_msg;
   compass_msg.header.frame_id = "compass_data";
   compass_msg.header.stamp = msg_time;
