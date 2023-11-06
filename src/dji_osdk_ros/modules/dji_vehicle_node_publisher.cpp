@@ -566,7 +566,7 @@ void VehicleNode::publish100HzData(Vehicle *vehicle, RecvContainer recvFrame,
   compass_msg.y = compass_data.y;
   compass_msg.z = compass_data.z;
   
-  p->esc_publisher_.publish(compass_msg);
+  p->compass_publisher_.publish(compass_msg);
 
   Telemetry::TypeMap<Telemetry::TOPIC_QUATERNION>::type quat =
       vehicle->subscribe->getValue<Telemetry::TOPIC_QUATERNION>();
