@@ -560,8 +560,10 @@ bool VehicleNode::initDataSubscribeFromFC()
 
   if(ptr_wrapper_->getFwVersion() > versionBase33)
   {
-    ROS_INFO("Se agregó el topico de ESC_DATA");
-    topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
+    if (ptr_wrapper_->isM300()) {
+      ROS_INFO("Se agregó el topico de ESC_DATA");
+      topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
+    }
     topicList50Hz.push_back(Telemetry::TOPIC_POSITION_VO);
     topicList50Hz.push_back(Telemetry::TOPIC_RC_WITH_FLAG_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_FLIGHT_ANOMALY);
