@@ -327,38 +327,6 @@ void VehicleNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     }
   }
 
-  uint16_t flag_has_esc = ptr_wrapper_->isM300()
-
-  if (flag_has_esc) {
-    Telemetry::TypeMap<Telemetry::TOPIC_ESC_DATA>::type esc_data = 
-    vehicle->subscribe->getValue<Telemetry::TOPIC_ESC_DATA>();
-
-    dji_osdk_ros::ESCStatus esc_data_msg;
-    esc_data_msg.header.frame_id = "esc_data";
-    esc_data_msg.header.stamp = msg_time;
-    esc_data_msg.esc.reserve(4 * sizeof(esc_data.esc[0]));
-    int i = 0;
-    for (const DJI::OSDK::Telemetry::ESCStatusIndividual& esc_status : esc_data.esc)
-    {
-      if (i >= 4) break;
-      dji_osdk_ros::ESCStatusIndividual esc;
-      esc.id = i;
-      esc.current         = esc_status.current;
-      esc.voltage   = esc_status.voltage;
-      esc.temperature       = esc_status.temperature;
-      esc.speed       = esc_status.speed;
-      esc.stall           = esc_status.stall;
-      esc.empty         = esc_status.empty;
-      esc.unbalanced      = esc_status.unbalanced;
-      esc.escDisconnected       = !esc_status.escDisconnected;
-      esc.temperatureHigh       = esc_status.temperatureHigh;
-      esc_data_msg.esc.push_back(esc);
-      i++;
-    }
-    
-    p->esc_publisher_.publish(esc_data_msg);
-  }
-
   Telemetry::TypeMap<Telemetry::TOPIC_GPS_FUSED>::type fused_gps =
       vehicle->subscribe->getValue<Telemetry::TOPIC_GPS_FUSED>();
   Telemetry::TypeMap<Telemetry::TOPIC_ALTITUDE_FUSIONED>::type fused_altitude =
