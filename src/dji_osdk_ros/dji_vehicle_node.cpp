@@ -29,6 +29,21 @@
 //INCLUDE
 #include <dji_osdk_ros/dji_vehicle_node.h>
 #include <dji_osdk_ros/vehicle_wrapper.h>
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <vector>
+#include <serial/serial.h>
+
+using std::string;
+using std::exception;
+using std::cout;
+using std::cerr;
+using std::endl;
+using std::vector;
+
+
+
 
 #ifdef OPEN_CV_INSTALLED
 #include <dji_osdk_ros/stereo_utility/m300_stereo_param_tool.hpp>
@@ -65,6 +80,25 @@ VehicleNode::VehicleNode():telemetry_from_fc_(TelemetryType::USE_ROS_BROADCAST),
 #else
   enable_ad = false;
 #endif
+
+  vector<serial::PortInfo> devices_found = serial::list_ports();
+
+  vector<serial::PortInfo>::iterator iter = devices_found.begin();
+  
+	while( iter != devices_found.end() )
+	{
+		serial::PortInfo device = *iter++;
+
+		std::string port = device.port.c_str();
+		// VID:PID
+		std::string vidpid = device.hardware_id.c_str();
+		if(vidpid.find("VID:PID=0403:6001") != string::npos){
+			std::cout << "CONTIENE! \n";
+			device_ = port;
+		}
+		std::cout << "Puerto: " << port << " VidPid: " << vidpid << "\n";
+	}
+
   ptr_wrapper_ = new VehicleWrapper(app_id_, enc_key_, device_acm_, device_, baud_rate_, enable_ad);
 
   if(ptr_wrapper_ == nullptr)
@@ -516,7 +550,6 @@ bool VehicleNode::initDataSubscribeFromFC()
   topicList100Hz.push_back(Telemetry::TOPIC_QUATERNION);
   topicList100Hz.push_back(Telemetry::TOPIC_ACCELERATION_GROUND);
   topicList100Hz.push_back(Telemetry::TOPIC_ANGULAR_RATE_FUSIONED);
-  topicList100Hz.push_back(Telemetry::TOPIC_COMPASS);
 
   int nTopic100Hz    = topicList100Hz.size();
   if (ptr_wrapper_->initPackageFromTopicList(static_cast<int>(SubscribePackgeIndex::PACKAGE_ID_100HZ), nTopic100Hz,
@@ -564,6 +597,7 @@ bool VehicleNode::initDataSubscribeFromFC()
       ROS_INFO("Se agregó el topico de ESC_DATA");
       topicList50Hz.push_back(Telemetry::TOPIC_ESC_DATA);
     }
+    topicList50Hz.push_back(Telemetry::TOPIC_COMPASS);
     topicList50Hz.push_back(Telemetry::TOPIC_POSITION_VO);
     topicList50Hz.push_back(Telemetry::TOPIC_RC_WITH_FLAG_DATA);
     topicList50Hz.push_back(Telemetry::TOPIC_FLIGHT_ANOMALY);
